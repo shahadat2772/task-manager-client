@@ -1,14 +1,17 @@
 import React from "react";
 import "./Navbar.css";
-
+import { Routes, Route, NavLink } from "react-router-dom";
 const Navbar = () => {
   const menuItems = (
     <>
       <li>
-        <a>Item 1</a>
+        <NavLink to={"/todo"}>Todo</NavLink>
       </li>
       <li>
-        <a>Item 3</a>
+        <NavLink to={"/completed"}>Completed</NavLink>
+      </li>
+      <li>
+        <NavLink to={"/calendar"}>Calendar</NavLink>
       </li>
     </>
   );

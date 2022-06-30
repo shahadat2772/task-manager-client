@@ -13,4 +13,6 @@
 
 .menuItems li {
   margin: 0px 10px;
+  font-size: 14px;
+  font-weight: 500;
 }
