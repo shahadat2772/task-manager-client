@@ -1,11 +1,11 @@
 import logo from "./logo.svg";
 import "./App.css";
 import Todo from "./pages/Todo/Todo";
-import Navbar from "./pages/Shared/Navbar";
+import Navbar from "./pages/Shared/Navbar/Navbar";
 import { Routes, Route } from "react-router-dom";
 import Completed from "./pages/Completed/Completed";
 import Calendar from "./pages/Calendar/Calendar";
-import AddModal from "./pages/Shared/AddModal";
+import AddModal from "./pages/Shared/AddModal/AddModal";
 function App() {
   return (
     <div className="App relative">
