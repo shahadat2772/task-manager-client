@@ -1,7 +1,15 @@
 import React from "react";
 import "./Navbar.css";
 import { NavLink } from "react-router-dom";
+import { useAuthState, useSignInWithGoogle } from "react-firebase-hooks/auth";
+import { auth } from "../../../firebase.init";
+import { signOut } from "firebase/auth";
+import Loader from "../Loader/Loader";
+
 const Navbar = () => {
+  const [user, loading] = useAuthState(auth);
+  const [signInWithGoogle, guser, gloading, gerror] = useSignInWithGoogle(auth);
+
   const menuItems = (
     <>
       <li>
@@ -28,14 +36,13 @@ const Navbar = () => {
           Calendar
         </NavLink>
       </li>
-      <li className="loginButton">Login</li>
-      {/* <li className="flex items-center">
-        <div className="avatar">
-          <div className="w-10 rounded-full">
-            <img src="https://placeimg.com/192/192/people" />
-          </div>
-        </div>
-      </li> */}
+      <li className="loginButton">
+        {user ? (
+          <button onClick={() => signOut(auth)}>Logout</button>
+        ) : (
+          <button onClick={() => signInWithGoogle()}>Login</button>
+        )}
+      </li>
     </>
   );
 
