@@ -1,23 +1,46 @@
 import React from "react";
 import "./Navbar.css";
-import { Routes, Route, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 const Navbar = () => {
   const menuItems = (
     <>
       <li>
-        <NavLink to={"/todo"}>Todo</NavLink>
+        <NavLink
+          className={({ isActive }) => (isActive ? "activeMenuItem" : "")}
+          to={"/todo"}
+        >
+          Todo
+        </NavLink>
       </li>
       <li>
-        <NavLink to={"/completed"}>Completed</NavLink>
+        <NavLink
+          className={({ isActive }) => (isActive ? "activeMenuItem" : "")}
+          to={"/completed"}
+        >
+          Completed
+        </NavLink>
       </li>
       <li>
-        <NavLink to={"/calendar"}>Calendar</NavLink>
+        <NavLink
+          className={({ isActive }) => (isActive ? "activeMenuItem" : "")}
+          to={"/calendar"}
+        >
+          Calendar
+        </NavLink>
       </li>
+      <li className="loginButton">Login</li>
+      {/* <li className="flex items-center">
+        <div className="avatar">
+          <div className="w-10 rounded-full">
+            <img src="https://placeimg.com/192/192/people" />
+          </div>
+        </div>
+      </li> */}
     </>
   );
 
   return (
-    <div className="navbarContainer">
+    <div className="navbarContainer fixed top-0">
       <div className="navbar">
         <div className="navbar-start">
           <div className="dropdown">
@@ -44,12 +67,14 @@ const Navbar = () => {
               {menuItems}
             </ul>
           </div>
-          <a href="/" className="normal-case navHeader text-xl">
-            Task Manager
+          <a href="/" className="normal-case navHeader text-2xl">
+            <span className="text-[blueviolet]">Task</span>Manager
           </a>
         </div>
         <div className="navbar-end hidden lg:flex">
-          <ul className="menuItems menu-horizontal p-0">{menuItems}</ul>
+          <ul className="menuItems menu-horizontal items-center p-0">
+            {menuItems}
+          </ul>
         </div>
       </div>
     </div>

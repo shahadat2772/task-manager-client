@@ -10,12 +10,8 @@ function App() {
     <div className="App">
       <Navbar></Navbar>
       <div className="max-w-7xl mx-auto">
-        {/* <Router></Router> */}
-
-        {/* Routes */}
         <Routes>
-          <Route path="/" element={<Todo></Todo>}></Route>
-          <Route path="/Todo" element={<Todo></Todo>}></Route>
+          <Route path="/todo" index="/todo" element={<Todo></Todo>}></Route>
           <Route path="/completed" element={<Completed></Completed>}></Route>
           <Route path="/calendar" element={<Calendar></Calendar>}></Route>
         </Routes>

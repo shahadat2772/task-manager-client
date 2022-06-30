@@ -1,9 +1,11 @@
 .navHeader {
+  /* color: white; */
 }
 
 .navbarContainer {
-  /* box-shadow: 0px 1px 4px 0px rgba(53, 53, 53, 0.2); */
   box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+  background-color: white;
+  width: 100%;
 }
 
 .navbar {
@@ -15,4 +17,16 @@
   margin: 0px 10px;
   font-size: 14px;
   font-weight: 500;
+}
+
+.menuItems li:hover {
+  color: rgb(81, 0, 156);
+}
+
+.activeMenuItem {
+  color: blueviolet;
+}
+
+.loginButton {
+  cursor: pointer;
 }

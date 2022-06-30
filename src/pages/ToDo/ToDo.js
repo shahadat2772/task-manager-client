@@ -1,11 +1,7 @@
 import React from "react";
 
 const Todo = () => {
-  return (
-    <div>
-      <h1 className="text-2xl">TODO</h1>
-    </div>
-  );
+  return <div></div>;
 };
 
 export default Todo;
