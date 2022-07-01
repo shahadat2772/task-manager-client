@@ -26,6 +26,16 @@ function App() {
     fetch(`http://localhost:5000/getTask/${email}`).then((res) => res.json())
   );
 
+  const {
+    data: completedTasks,
+    completedTasksLoading,
+    refetch: completedTasksReFetch,
+  } = useQuery("getCompletedTasks", () =>
+    fetch(`http://localhost:5000/getCompletedTasks/${email}`).then((res) =>
+      res.json()
+    )
+  );
+
   // Refetching the data on email
   useEffect(() => {
     tasksReFetch();
@@ -37,7 +47,9 @@ function App() {
 
   return (
     <div className="App relative">
-      <globalContext.Provider value={[tasks, tasksReFetch]}>
+      <globalContext.Provider
+        value={[tasks, tasksReFetch, completedTasks, completedTasksReFetch]}
+      >
         <Navbar></Navbar>
         <div className="max-w-7xl mx-auto">
           <Routes>

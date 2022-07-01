@@ -1,8 +1,25 @@
 import React from "react";
+import toast from "react-hot-toast";
 
-const EachTodoRow = ({ task, tasksReFetch }) => {
-  const handleComplete = () => {
-    console.log("CEHCKED");
+const EachTodoRow = ({ task, refetch, completedTasksReFetch }) => {
+  const handleComplete = (task) => {
+    fetch("http://localhost:5000/addToComplete", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ task }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        const [deleteResult, addResult] = data;
+        console.log(deleteResult, addResult);
+        if (deleteResult.deletedCount > 0 && addResult.insertedId) {
+          refetch();
+          completedTasksReFetch();
+          toast.success("Task completed!");
+        }
+      });
   };
 
   const handleEdit = () => {
@@ -36,7 +53,7 @@ const EachTodoRow = ({ task, tasksReFetch }) => {
       </td>
       <td className="flex items-center">
         <input
-          onChange={() => handleComplete()}
+          onChange={() => handleComplete(task)}
           className="text-primary w-6 h-6"
           type="checkbox"
           name=""
