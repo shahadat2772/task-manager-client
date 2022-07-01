@@ -15,7 +15,7 @@ const Navbar = () => {
       <li>
         <NavLink
           className={({ isActive }) => (isActive ? "activeMenuItem" : "")}
-          to={"/todo"}
+          to={"/"}
         >
           Todo
         </NavLink>

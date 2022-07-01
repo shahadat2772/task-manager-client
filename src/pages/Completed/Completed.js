@@ -44,7 +44,7 @@ const Completed = () => {
           </div>
         </div>
       )}
-      {user && completedTasks.length === 0 && (
+      {user && completedTasks?.length === 0 && (
         <NoTaskYet text={"No completed task yet"}></NoTaskYet>
       )}
       {!user && <RequireAuth></RequireAuth>}

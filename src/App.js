@@ -16,54 +16,64 @@ import CalendarPage from "./pages/CalendarPage/CalendarPage";
 export const globalContext = createContext();
 
 function App() {
-  const [user, loading] = useAuthState(auth);
+  const [user, userLoading] = useAuthState(auth);
   const email = user?.email;
+
   const [taskToEdit, setTaskToEdit] = useState(null);
+
+  const [tasksTodo, setTasksTodo] = useState([]);
+  const [completedTasks, setCompletedTasks] = useState([]);
 
   const {
     data: tasks,
-    tasksLoading,
+    isLoading: tasksLoading,
     refetch: tasksReFetch,
   } = useQuery("getTasks", () =>
-    fetch(`http://localhost:5000/getTask/${email}`).then((res) => res.json())
+    fetch(`https://degrassi-eh-53604.herokuapp.com/getTask/${email}`).then(
+      (res) => res.json()
+    )
   );
 
   const {
-    data: completedTasks,
-    completedTasksLoading,
+    data: completed,
+    isLoading: completedTasksLoading,
     refetch: completedTasksReFetch,
   } = useQuery("getCompletedTasks", () =>
-    fetch(`http://localhost:5000/getCompletedTasks/${email}`).then((res) =>
-      res.json()
-    )
+    fetch(
+      `https://degrassi-eh-53604.herokuapp.com/getCompletedTasks/${email}`
+    ).then((res) => res.json())
   );
+
+  useEffect(() => {
+    setTasksTodo(tasks);
+    setCompletedTasks(completedTasks);
+  }, [tasks, completed]);
 
   // Refetching the data on email
   useEffect(() => {
     tasksReFetch();
     completedTasksReFetch();
-  }, [email]);
-
-  if (loading || tasksLoading || completedTasksLoading) {
-    return <Loader></Loader>;
-  }
+  }, [email, userLoading]);
 
   return (
     <div className="App relative">
       <globalContext.Provider
         value={[
-          tasks,
+          tasksTodo,
           tasksReFetch,
           completedTasks,
           completedTasksReFetch,
           taskToEdit,
           setTaskToEdit,
+          tasksLoading,
+          completedTasksLoading,
+          userLoading,
+          user,
         ]}
       >
         <Navbar></Navbar>
         <div className="max-w-7xl mx-auto min-h-screen">
           <Routes>
-            <Route index="/todo" path="/todo" element={<Todo></Todo>}></Route>
             <Route path="/" element={<Todo></Todo>}></Route>
             <Route path="/completed" element={<Completed></Completed>}></Route>
             <Route
@@ -80,7 +90,7 @@ function App() {
           </div>
         </footer>
         {/* Modal and Task adding bu tton */}
-        {user && !loading && <AddTaskButton></AddTaskButton>}
+        {user && !userLoading && <AddTaskButton></AddTaskButton>}
         {<AddModal></AddModal>}
         {taskToEdit && <TaskEditModal taskToEdit={taskToEdit}></TaskEditModal>}
       </globalContext.Provider>

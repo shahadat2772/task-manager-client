@@ -9,7 +9,7 @@ const EachTodoRow = ({
   setTaskToEdit,
 }) => {
   const handleComplete = (task) => {
-    fetch("http://localhost:5000/addToComplete", {
+    fetch("https://degrassi-eh-53604.herokuapp.com/addToComplete", {
       method: "POST",
       headers: {
         "content-type": "application/json",

@@ -24,7 +24,7 @@ const AddModal = () => {
     };
 
     // Sending the task to server
-    fetch("http://localhost:5000/addTask", {
+    fetch("https://degrassi-eh-53604.herokuapp.com/addTask", {
       method: "POST",
       headers: {
         "content-type": "application/json",

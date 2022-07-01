@@ -8,20 +8,29 @@ import EachTodoRow from "./EachTodoRow";
 import { globalContext } from "../../App";
 import NoTaskYet from "../Shared/NoTaskYet/NoTaskYet";
 const Todo = () => {
+  // const [user, loading] = useAuthState(auth);
   const [
-    tasks,
+    tasksTodo,
     tasksReFetch,
     completedTasks,
     completedTasksReFetch,
     taskToEdit,
     setTaskToEdit,
+    tasksLoading,
+    completedTasksLoading,
+    userLoading,
+    user,
   ] = useContext(globalContext);
 
-  const [user, loading] = useAuthState(auth);
+  if (userLoading || tasksLoading) {
+    // console.log(userLoading, tasksLoading);
+    return <Loader></Loader>;
+  }
 
   return (
     <div className="pt-[64px]">
-      {user && tasks?.length !== 0 && (
+      {/* {tasksLoading && <Loader></Loader>} */}
+      {user && tasksTodo?.length !== 0 && (
         <div className="todoContainer">
           <div className="overflow-x-auto mt-6 px-6 pb-[80px]">
             <h2 className="text-2xl  pb-5 md:w-[88%] w-[100%] mx-auto">
@@ -38,7 +47,7 @@ const Todo = () => {
                 </tr>
               </thead>
               <tbody>
-                {tasks?.map((task) => (
+                {tasksTodo?.map((task) => (
                   <EachTodoRow
                     taskToEdit={taskToEdit}
                     setTaskToEdit={setTaskToEdit}
@@ -53,7 +62,7 @@ const Todo = () => {
           </div>
         </div>
       )}
-      {user && tasks.length === 0 && (
+      {user && tasksTodo?.length === 0 && (
         <NoTaskYet text={"No task added yet"}></NoTaskYet>
       )}
       {!user && <RequireAuth></RequireAuth>}

@@ -41,7 +41,7 @@ const TaskEditModal = () => {
       return;
     } else {
       // Updating on server
-      fetch(`http://localhost:5000/updateTask/${id}`, {
+      fetch(`https://degrassi-eh-53604.herokuapp.com/updateTask/${id}`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
