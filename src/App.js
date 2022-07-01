@@ -22,14 +22,14 @@ function App() {
   // State for editing a task
   const [taskToEdit, setTaskToEdit] = useState(null);
   // Loader state for tasks
-  const [tasksLoading, setTasksLoading] = useState(true);
+  const [tasksLoading, setTasksLoading] = useState(false);
   // Tasks state
   const [tasksTodo, setTasksTodo] = useState([]);
   // Tasks refetch initiator
   const [tasksInt, setTasksInt] = useState(true);
 
   // Loader state for tasks
-  const [completedTasksLoading, setCompletedTasksLoading] = useState(true);
+  const [completedTasksLoading, setCompletedTasksLoading] = useState(false);
   // Tasks state
   const [completedTasks, setCompletedTasks] = useState([]);
   // Tasks refetch initiator
@@ -38,6 +38,7 @@ function App() {
   // Loading tasks
   useEffect(() => {
     if (email) {
+      setTasksLoading(true);
       fetch(`https://degrassi-eh-53604.herokuapp.com/getTask/${email}`)
         .then((res) => res.json())
         .then((data) => {
@@ -53,6 +54,7 @@ function App() {
 
   useEffect(() => {
     if (email) {
+      setCompletedTasksLoading(true);
       fetch(
         `https://degrassi-eh-53604.herokuapp.com/getCompletedTasks/${email}`
       )
