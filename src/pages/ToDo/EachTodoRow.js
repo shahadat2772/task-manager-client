@@ -29,7 +29,6 @@ const EachTodoRow = ({
   };
 
   const handleEdit = (task) => {
-    console.log(task);
     setTaskToEdit(task);
   };
 

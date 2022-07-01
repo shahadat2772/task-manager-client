@@ -92,11 +92,6 @@ const AddModal = () => {
               />
             </form>
           </div>
-          {/* <div className="modal-action">
-            <label htmlFor="AddModal" className="btn">
-              ADD
-            </label>
-          </div> */}
         </div>
       </div>
     </div>

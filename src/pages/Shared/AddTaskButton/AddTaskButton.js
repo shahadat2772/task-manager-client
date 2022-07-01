@@ -4,7 +4,6 @@ const AddTaskButton = () => {
   return (
     <div className="addTaskButton">
       <label htmlFor="AddModal" className="button">
-        {/* <FontAwesomeIcon className="plusIcon" icon={faPlus} /> */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="plusIcon"

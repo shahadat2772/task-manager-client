@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../../firebase.init";
-// import "./taskEditModal.css";
 import toast from "react-hot-toast";
 import { globalContext } from "../../../App";
 const TaskEditModal = () => {
@@ -51,13 +50,9 @@ const TaskEditModal = () => {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           if (data.modifiedCount) {
             tasksReFetch();
             setTaskToEdit(null);
-            // document.getElementById("taskName").value = "";
-            // document.getElementById("time").value = "";
-            // document.getElementById("date").value = "";
             document.getElementById("taskEditModal").click();
             toast.success("Task updated successfully.");
           } else {

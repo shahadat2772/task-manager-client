@@ -72,7 +72,7 @@ function App() {
             ></Route>
           </Routes>
         </div>
-        <footer class="footer footer-center p-4 text-base-content bg-[blueviolet]">
+        <footer className="footer footer-center p-4 text-base-content bg-[blueviolet]">
           <div>
             <p className="text-[#ffffffe3]">
               Copyright © 2022 - All right reserved by TaskManager

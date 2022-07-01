@@ -1,11 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
-
 import { useAuthState } from "react-firebase-hooks/auth";
-
 import { auth } from "../../firebase.init";
 import Loader from "../Shared/Loader/Loader";
 import RequireAuth from "../Shared/RequireAuth/RequireAuth";
-
 import { globalContext } from "../../App";
 import EachCompletedTaskRow from "./EachCompletedTaskRow";
 import NoTaskYet from "../Shared/NoTaskYet/NoTaskYet";
