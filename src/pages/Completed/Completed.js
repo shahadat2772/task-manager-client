@@ -37,6 +37,7 @@ const Completed = () => {
 
                 {completedTasks?.map((completedTask) => (
                   <EachCompletedTaskRow
+                    key={completedTask._id}
                     completedTask={completedTask}
                   ></EachCompletedTaskRow>
                 ))}

@@ -11,12 +11,14 @@ import { auth } from "./firebase.init";
 import { Toaster } from "react-hot-toast";
 import { useQuery } from "react-query";
 import Loader from "./pages/Shared/Loader/Loader";
-import { createContext, useEffect } from "react";
+import { createContext, useEffect, useState } from "react";
+import TaskEditModal from "./pages/Shared/TaskEditModal/TaskEditModal";
 export const globalContext = createContext();
 
 function App() {
   const [user, loading] = useAuthState(auth);
   const email = user?.email;
+  const [taskToEdit, setTaskToEdit] = useState(null);
 
   const {
     data: tasks,
@@ -48,7 +50,14 @@ function App() {
   return (
     <div className="App relative">
       <globalContext.Provider
-        value={[tasks, tasksReFetch, completedTasks, completedTasksReFetch]}
+        value={[
+          tasks,
+          tasksReFetch,
+          completedTasks,
+          completedTasksReFetch,
+          taskToEdit,
+          setTaskToEdit,
+        ]}
       >
         <Navbar></Navbar>
         <div className="max-w-7xl mx-auto">
@@ -59,9 +68,10 @@ function App() {
             <Route path="/calendar" element={<Calendar></Calendar>}></Route>
           </Routes>
         </div>
-        {/* Modal and Task adding button */}
+        {/* Modal and Task adding bu tton */}
         {user && !loading && <AddTaskButton></AddTaskButton>}
         {<AddModal></AddModal>}
+        {taskToEdit && <TaskEditModal taskToEdit={taskToEdit}></TaskEditModal>}
       </globalContext.Provider>
       <Toaster></Toaster>
     </div>

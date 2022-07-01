@@ -1,7 +1,13 @@
 import React from "react";
 import toast from "react-hot-toast";
 
-const EachTodoRow = ({ task, refetch, completedTasksReFetch }) => {
+const EachTodoRow = ({
+  task,
+  refetch,
+  completedTasksReFetch,
+  taskToEdit,
+  setTaskToEdit,
+}) => {
   const handleComplete = (task) => {
     fetch("http://localhost:5000/addToComplete", {
       method: "POST",
@@ -22,8 +28,9 @@ const EachTodoRow = ({ task, refetch, completedTasksReFetch }) => {
       });
   };
 
-  const handleEdit = () => {
-    console.log("CLICKED");
+  const handleEdit = (task) => {
+    console.log(task);
+    setTaskToEdit(task);
   };
 
   const { taskName, date, time } = task;
@@ -44,12 +51,13 @@ const EachTodoRow = ({ task, refetch, completedTasksReFetch }) => {
       <td>{date}</td>
       <td>{timeString12hr}</td>
       <td>
-        <button
-          onClick={() => handleEdit()}
+        <label
+          htmlFor="taskEditModal"
+          onClick={() => handleEdit(task)}
           className="btn btn-outline btn-xs btn-primary"
         >
           EDIT
-        </button>
+        </label>
       </td>
       <td className="flex items-center">
         <input

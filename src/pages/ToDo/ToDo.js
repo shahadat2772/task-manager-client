@@ -7,8 +7,14 @@ import { useQuery } from "react-query";
 import EachTodoRow from "./EachTodoRow";
 import { globalContext } from "../../App";
 const Todo = () => {
-  const [tasks, tasksReFetch, completedTasks, completedTasksReFetch] =
-    useContext(globalContext);
+  const [
+    tasks,
+    tasksReFetch,
+    completedTasks,
+    completedTasksReFetch,
+    taskToEdit,
+    setTaskToEdit,
+  ] = useContext(globalContext);
 
   const [user, loading] = useAuthState(auth);
 
@@ -33,6 +39,8 @@ const Todo = () => {
 
                 {tasks?.map((task) => (
                   <EachTodoRow
+                    taskToEdit={taskToEdit}
+                    setTaskToEdit={setTaskToEdit}
                     completedTasksReFetch={completedTasksReFetch}
                     refetch={tasksReFetch}
                     key={task._id}
