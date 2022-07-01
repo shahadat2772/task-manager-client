@@ -21,9 +21,11 @@ const Completed = () => {
     <div className="pt-[64px]">
       {user ? (
         <div className="completedContainer">
-          <div className="overflow-x-auto mt-8 px-6">
-            <table className="table w-full">
-              {/* <!-- head --> */}
+          <div className="overflow-x-auto mt-8 px-6 pb-[80px]">
+            <h2 className="text-2xl  pb-5 md:w-[88%] w-[100%] mx-auto">
+              Completed <span className="text-primary">tasks</span>
+            </h2>
+            <table className="table w-[88%] mx-auto">
               <thead>
                 <tr>
                   <th>Task</th>
@@ -33,8 +35,6 @@ const Completed = () => {
                 </tr>
               </thead>
               <tbody>
-                {/* <!-- row 2 --> */}
-
                 {completedTasks?.map((completedTask) => (
                   <EachCompletedTaskRow
                     key={completedTask._id}
