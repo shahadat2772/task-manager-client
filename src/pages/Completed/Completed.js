@@ -8,6 +8,7 @@ import RequireAuth from "../Shared/RequireAuth/RequireAuth";
 
 import { globalContext } from "../../App";
 import EachCompletedTaskRow from "./EachCompletedTaskRow";
+import NoTaskYet from "../Shared/NoTaskYet/NoTaskYet";
 
 const Completed = () => {
   const [user, loading] = useAuthState(auth);
@@ -19,7 +20,7 @@ const Completed = () => {
   }
   return (
     <div className="pt-[64px]">
-      {user ? (
+      {user && completedTasks?.length === 0 && (
         <div className="completedContainer">
           <div className="overflow-x-auto mt-8 px-6 pb-[80px]">
             <h2 className="text-2xl  pb-5 md:w-[88%] w-[100%] mx-auto">
@@ -45,9 +46,11 @@ const Completed = () => {
             </table>
           </div>
         </div>
-      ) : (
-        <RequireAuth></RequireAuth>
       )}
+      {user && completedTasks.length !== 0 && (
+        <NoTaskYet text={"No completed task yet"}></NoTaskYet>
+      )}
+      {!user && <RequireAuth></RequireAuth>}
     </div>
   );
 };
