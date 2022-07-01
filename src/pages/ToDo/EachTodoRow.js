@@ -64,7 +64,7 @@ const EachTodoRow = ({
       <td className="flex items-center">
         <input
           onChange={() => handleComplete(task)}
-          className="text-primary w-6 h-6"
+          className="w-6 h-6 btn btn-primary border-4"
           type="checkbox"
           name=""
           id=""

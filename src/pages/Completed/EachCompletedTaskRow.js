@@ -15,8 +15,10 @@ const EachCompletedTaskRow = ({ completedTask }) => {
   return (
     <tr className="">
       <td>{taskName}</td>
-      <td>{date}</td>
-      <td>{timeString12hr}</td>
+      <td>{date || "Not defined"}</td>
+      <td>
+        {(timeString12hr === "Invalid Date" && "Not defined") || timeString12hr}
+      </td>
       <td>Completed</td>
     </tr>
   );

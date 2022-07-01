@@ -3,7 +3,6 @@ import Todo from "./pages/Todo/Todo";
 import Navbar from "./pages/Shared/Navbar/Navbar";
 import { Routes, Route } from "react-router-dom";
 import Completed from "./pages/Completed/Completed";
-import Calendar from "./pages/Calendar/Calendar";
 import AddModal from "./pages/Shared/AddModal/AddModal";
 import AddTaskButton from "./pages/Shared/AddTaskButton/AddTaskButton";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -13,6 +12,7 @@ import { useQuery } from "react-query";
 import Loader from "./pages/Shared/Loader/Loader";
 import { createContext, useEffect, useState } from "react";
 import TaskEditModal from "./pages/Shared/TaskEditModal/TaskEditModal";
+import CalendarPage from "./pages/CalendarPage/CalendarPage";
 export const globalContext = createContext();
 
 function App() {
@@ -61,14 +61,24 @@ function App() {
         ]}
       >
         <Navbar></Navbar>
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-7xl mx-auto min-h-screen">
           <Routes>
             <Route index="/todo" path="/todo" element={<Todo></Todo>}></Route>
             <Route path="/" element={<Todo></Todo>}></Route>
             <Route path="/completed" element={<Completed></Completed>}></Route>
-            <Route path="/calendar" element={<Calendar></Calendar>}></Route>
+            <Route
+              path="/calendar"
+              element={<CalendarPage></CalendarPage>}
+            ></Route>
           </Routes>
         </div>
+        <footer class="footer footer-center p-4 text-base-content bg-[blueviolet]">
+          <div>
+            <p className="text-[#ffffffe3]">
+              Copyright © 2022 - All right reserved by TaskManager
+            </p>
+          </div>
+        </footer>
         {/* Modal and Task adding bu tton */}
         {user && !loading && <AddTaskButton></AddTaskButton>}
         {<AddModal></AddModal>}
