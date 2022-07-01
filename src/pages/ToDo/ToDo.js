@@ -1,28 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase.init";
 import Loader from "../Shared/Loader/Loader";
 import RequireAuth from "../Shared/RequireAuth/RequireAuth";
 import { useQuery } from "react-query";
 import EachTodoRow from "./EachTodoRow";
+import { globalContext } from "../../App";
 const Todo = () => {
+  const [tasks, tasksReFetch] = useContext(globalContext);
+
   const [user, loading] = useAuthState(auth);
-  const [tasks, setTasks] = useState([]);
-  const email = user?.email;
-
-  useEffect(() => {
-    if (email) {
-      fetch(`http://localhost:5000/getTask/${email}`)
-        .then((res) => res.json())
-        .then((data) => {
-          if (data) {
-            setTasks(data);
-          }
-        });
-    }
-  }, [email]);
-
-  console.log(tasks);
 
   return (
     <div className="pt-[64px]">
@@ -43,8 +30,12 @@ const Todo = () => {
               <tbody>
                 {/* <!-- row 2 --> */}
 
-                {tasks.map((task) => (
-                  <EachTodoRow task={task}></EachTodoRow>
+                {tasks?.map((task) => (
+                  <EachTodoRow
+                    refetch={tasksReFetch}
+                    key={task._id}
+                    task={task}
+                  ></EachTodoRow>
                 ))}
               </tbody>
             </table>

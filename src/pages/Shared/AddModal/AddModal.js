@@ -1,12 +1,13 @@
 import { async } from "@firebase/util";
-import React from "react";
+import React, { useContext } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../../firebase.init";
 import "./AddModal.css";
 import toast from "react-hot-toast";
-
+import { globalContext } from "../../../App";
 const AddModal = () => {
   const [user, loading] = useAuthState(auth);
+  const [tasks, tasksReFetch] = useContext(globalContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -42,6 +43,7 @@ const AddModal = () => {
           document.getElementById("date").value = "";
           document.getElementById("AddModal").click();
           toast.success("Task added successfully.");
+          tasksReFetch();
         } else {
           toast.success("Something terrible happened!");
         }
