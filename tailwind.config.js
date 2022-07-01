@@ -8,7 +8,7 @@ module.exports = {
     themes: [
       {
         task_manager: {
-          primary: "#CCFFBD",
+          primary: "blueviolet",
           secondary: "#7ECA9C",
           accent: "#40394A",
           neutral: "#1C1427",
