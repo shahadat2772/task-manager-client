@@ -62,7 +62,7 @@ const Todo = () => {
           </div>
         </div>
       )}
-      {user && tasksTodo?.length === 0 && (
+      {user && !tasksLoading && tasksTodo?.length === 0 && (
         <NoTaskYet text={"No task added yet"}></NoTaskYet>
       )}
       {!user && <RequireAuth></RequireAuth>}

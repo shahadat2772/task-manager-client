@@ -8,11 +8,21 @@ import EachCompletedTaskRow from "./EachCompletedTaskRow";
 import NoTaskYet from "../Shared/NoTaskYet/NoTaskYet";
 
 const Completed = () => {
-  const [user, loading] = useAuthState(auth);
-  const [tasks, tasksReFetch, completedTasks, completedTasksReFetch] =
-    useContext(globalContext);
+  const [user2, loading] = useAuthState(auth);
+  const [
+    tasksTodo,
+    tasksReFetch,
+    completedTasks,
+    completedTasksReFetch,
+    taskToEdit,
+    setTaskToEdit,
+    tasksLoading,
+    completedTasksLoading,
+    userLoading,
+    user,
+  ] = useContext(globalContext);
 
-  if (loading) {
+  if (userLoading || completedTasksLoading) {
     return <Loader></Loader>;
   }
   return (

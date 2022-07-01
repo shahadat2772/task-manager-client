@@ -40,6 +40,7 @@ const TaskEditModal = () => {
       toast.error("Make change to update.");
       return;
     } else {
+      toast.loading("Please wait", { id: "taskEditLoadingToast" });
       // Updating on server
       fetch(`https://degrassi-eh-53604.herokuapp.com/updateTask/${id}`, {
         method: "POST",
@@ -51,12 +52,14 @@ const TaskEditModal = () => {
         .then((res) => res.json())
         .then((data) => {
           if (data.modifiedCount) {
+            toast.dismiss("taskEditLoadingToast");
             tasksReFetch();
             setTaskToEdit(null);
             document.getElementById("taskEditModal").click();
             toast.success("Task updated successfully.");
           } else {
-            toast.success("Something terrible happened!");
+            toast.dismiss("taskEditLoadingToast");
+            toast.error("Something terrible happened!");
           }
         });
     }

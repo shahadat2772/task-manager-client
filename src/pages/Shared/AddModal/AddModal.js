@@ -11,6 +11,7 @@ const AddModal = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const taskName = e.target.taskName.value;
     const time = e.target.time.value;
     const date = e.target.date.value;
@@ -23,6 +24,8 @@ const AddModal = () => {
       email,
     };
 
+    toast.loading("Please wait.", { id: "submitLoadingModal" });
+
     // Sending the task to server
     fetch("https://degrassi-eh-53604.herokuapp.com/addTask", {
       method: "POST",
@@ -34,6 +37,7 @@ const AddModal = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.insertedId) {
+          toast.dismiss("submitLoadingModal");
           document.getElementById("taskName").value = "";
           document.getElementById("time").value = "";
           document.getElementById("date").value = "";
