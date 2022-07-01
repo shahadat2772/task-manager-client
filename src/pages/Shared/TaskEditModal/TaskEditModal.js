@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { async } from "@firebase/util";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../../firebase.init";
 // import "./taskEditModal.css";
@@ -20,9 +19,10 @@ const TaskEditModal = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const taskName = document.getElementById("taskName").value;
-    const time = document.getElementById("time").value;
-    const date = document.getElementById("date").value;
+    const id = taskToEdit._id;
+    const taskName = e.target.taskName.value;
+    const time = e.target.time.value;
+    const date = e.target.date.value;
     const email = user.email;
 
     const updatedTaskDetails = {
@@ -30,33 +30,41 @@ const TaskEditModal = () => {
       time,
       date,
       email,
-      status: "todo",
     };
-    console.log(updatedTaskDetails);
 
-    // Sending the task to server
-
-    // fetch("http://localhost:5000/addTask", {
-    //   method: "POST",
-    //   headers: {
-    //     "content-type": "application/json",
-    //   },
-    //   body: JSON.stringify({ updatedTaskDetails }),
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //     if (data.insertedId) {
-    //       document.getElementById("taskName").value = "";
-    //       document.getElementById("time").value = "";
-    //       document.getElementById("date").value = "";
-    //       document.getElementById("taskEditModal").click();
-    //       toast.success("Task added successfully.");
-    //       // tasksReFetch();
-    //     } else {
-    //       toast.success("Something terrible happened!");
-    //     }
-    //   });
+    // Checking if the task is same as before
+    if (
+      taskName === taskToEdit.taskName &&
+      time === taskToEdit.time &&
+      date === taskToEdit.date
+    ) {
+      toast.error("Make change to update.");
+      return;
+    } else {
+      // Updating on server
+      fetch(`http://localhost:5000/updateTask/${id}`, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ updatedTaskDetails }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          if (data.modifiedCount) {
+            tasksReFetch();
+            setTaskToEdit(null);
+            // document.getElementById("taskName").value = "";
+            // document.getElementById("time").value = "";
+            // document.getElementById("date").value = "";
+            document.getElementById("taskEditModal").click();
+            toast.success("Task updated successfully.");
+          } else {
+            toast.success("Something terrible happened!");
+          }
+        });
+    }
   };
 
   return (
@@ -65,6 +73,7 @@ const TaskEditModal = () => {
       <div className="modal modal-bottom sm:modal-middle">
         <div className="modal-box p-4 relative">
           <label
+            onClick={() => setTaskToEdit(null)}
             htmlFor="taskEditModal"
             className="btn btn-sm btn-circle btn-outline btn-primary absolute right-2 top-2"
           >
@@ -76,6 +85,7 @@ const TaskEditModal = () => {
           <div className="modalContent">
             <form onSubmit={(e) => handleSubmit(e)} className="form">
               <input
+                name="taskName"
                 defaultValue={taskToEdit?.taskName}
                 required
                 id="taskName"
@@ -85,6 +95,7 @@ const TaskEditModal = () => {
               />
               <div className="timeAndDateInput mt-3 flex justify-center gap-[3%]">
                 <input
+                  name="time"
                   defaultValue={taskToEdit?.time}
                   id="time"
                   type="time"
@@ -92,6 +103,7 @@ const TaskEditModal = () => {
                   className="input input-bordered w-[41%] block"
                 />
                 <input
+                  name="date"
                   defaultValue={taskToEdit?.date}
                   id="date"
                   type="date"

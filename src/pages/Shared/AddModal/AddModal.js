@@ -11,10 +11,9 @@ const AddModal = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const taskName = document.getElementById("taskName").value;
-    const time = document.getElementById("time").value;
-    const date = document.getElementById("date").value;
+    const taskName = e.target.taskName.value;
+    const time = e.target.time.value;
+    const date = e.target.date.value;
     const email = user.email;
 
     const taskDetails = {
@@ -22,9 +21,7 @@ const AddModal = () => {
       time,
       date,
       email,
-      status: "todo",
     };
-    console.log(taskDetails);
 
     // Sending the task to server
     fetch("http://localhost:5000/addTask", {
@@ -36,7 +33,6 @@ const AddModal = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.insertedId) {
           document.getElementById("taskName").value = "";
           document.getElementById("time").value = "";
@@ -68,6 +64,7 @@ const AddModal = () => {
             <form onSubmit={(e) => handleSubmit(e)} className="form">
               <input
                 required
+                name="taskName"
                 id="taskName"
                 type="text"
                 placeholder="Type what to be done."
@@ -75,12 +72,14 @@ const AddModal = () => {
               />
               <div className="timeAndDateInput mt-3 flex justify-center gap-[3%]">
                 <input
+                  name="time"
                   id="time"
                   type="time"
                   placeholder="Type what to be done."
                   className="input input-bordered w-[41%] block"
                 />
                 <input
+                  name="date"
                   id="date"
                   type="date"
                   placeholder="Type what to be done."

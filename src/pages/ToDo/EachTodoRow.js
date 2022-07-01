@@ -19,7 +19,7 @@ const EachTodoRow = ({
       .then((res) => res.json())
       .then((data) => {
         const [deleteResult, addResult] = data;
-        console.log(deleteResult, addResult);
+
         if (deleteResult.deletedCount > 0 && addResult.insertedId) {
           refetch();
           completedTasksReFetch();
@@ -48,8 +48,10 @@ const EachTodoRow = ({
   return (
     <tr className="">
       <td>{taskName}</td>
-      <td>{date}</td>
-      <td>{timeString12hr}</td>
+      <td>{date || "Not set yet"}</td>
+      <td>
+        {(timeString12hr === "Invalid Date" && "Not set yet") || timeString12hr}
+      </td>
       <td>
         <label
           htmlFor="taskEditModal"

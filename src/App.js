@@ -41,9 +41,10 @@ function App() {
   // Refetching the data on email
   useEffect(() => {
     tasksReFetch();
+    completedTasksReFetch();
   }, [email]);
 
-  if (loading || tasksLoading) {
+  if (loading || tasksLoading || completedTasksLoading) {
     return <Loader></Loader>;
   }
 
