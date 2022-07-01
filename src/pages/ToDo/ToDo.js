@@ -23,7 +23,6 @@ const Todo = () => {
   ] = useContext(globalContext);
 
   if (userLoading || tasksLoading) {
-    // console.log(userLoading, tasksLoading);
     return <Loader></Loader>;
   }
 

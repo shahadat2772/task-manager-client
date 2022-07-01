@@ -1,7 +1,3 @@
-.navHeader {
-  /* color: white; */
-}
-
 .navbarContainer {
   box-shadow: 0 1px 4px 0 rgb(0 0 0 / 16%), 0 1px 4px 0 rgb(0 0 0 / 12%);
   background-color: white;
@@ -16,7 +12,6 @@
 
 .menuItems li {
   margin: 0px 10px;
-  /* font-size: 14px; */
   font-weight: 500;
 }
 
